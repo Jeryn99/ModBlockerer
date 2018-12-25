@@ -1,6 +1,5 @@
 package me.fril.modblocker;
 
-import net.minecraft.command.server.CommandBanPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.management.UserListBansEntry;
 import net.minecraft.util.text.TextComponentString;
@@ -35,7 +34,7 @@ public class ModBlocker {
             
             for(String modid : MBConfig.config.blockedMods){
                 if(modList.containsKey(modid)){
-                    if (MBConfig.config.actionID == MBActions.BAN.getId())
+                    if (MBConfig.config.actionID == MBActions.BAN)
                         handleBan(playerMP,modid);
                     handleDisconnect(playerMP,modid);
                 }

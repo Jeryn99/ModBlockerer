@@ -21,5 +21,5 @@ public class MBConfig {
 
 	@Config.Name("Action")
 	@Config.Comment("What to do if one blacklisted mod is detected ? [1 : disconnect, 2: BAN HAMMER]")
-	public int actionID = 1;
+	public MBActions actionID = MBActions.DISCONNECT;
 }
