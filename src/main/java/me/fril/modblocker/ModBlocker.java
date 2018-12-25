@@ -1,14 +1,18 @@
 package me.fril.modblocker;
 
+import net.minecraft.command.server.CommandBanPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.management.UserListBansEntry;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.handshake.NetworkDispatcher;
 
+import java.util.Date;
 import java.util.Map;
 
 @Mod(modid = ModBlocker.MODID, name = ModBlocker.NAME, version = ModBlocker.VERSION, acceptableRemoteVersions = "*", serverSideOnly = true)
@@ -31,11 +35,11 @@ public class ModBlocker {
             
             for(String modid : MBConfig.config.blockedMods){
                 if(modList.containsKey(modid)){
-                    handleDisconnect(playerMP, modid);
-                    return;
+                    if (MBConfig.config.actionID == MBActions.BAN.getId())
+                        handleBan(playerMP,modid);
+                    handleDisconnect(playerMP,modid);
                 }
             }
-           
         }
     }
     
@@ -47,6 +51,11 @@ public class ModBlocker {
     public static void handleDisconnect(EntityPlayerMP entityPlayerMP, String modid){
         String disconnectMessage = MBConfig.config.disconnectMessage.replaceAll("@MOD", modid);
         entityPlayerMP.connection.disconnect(new TextComponentString(disconnectMessage));
+    }
+
+    public static void handleBan(EntityPlayerMP entityPlayerMP, String modid){
+        UserListBansEntry userlistbansentry = new UserListBansEntry(entityPlayerMP.getGameProfile(), (Date)null, MODID, (Date)null, MBConfig.config.banMessage);
+        FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getBannedPlayers().addEntry(userlistbansentry);
     }
     
 }
