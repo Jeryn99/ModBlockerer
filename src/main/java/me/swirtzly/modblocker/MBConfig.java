@@ -1,4 +1,4 @@
-package me.fril.modblocker;
+package me.swirtzly.modblocker;
 
 import net.minecraftforge.common.config.Config;
 

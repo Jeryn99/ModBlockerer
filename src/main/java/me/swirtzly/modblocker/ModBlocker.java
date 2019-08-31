@@ -1,4 +1,4 @@
-package me.fril.modblocker;
+package me.swirtzly.modblocker;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.management.UserListBansEntry;

@@ -1,4 +1,4 @@
-package me.fril.modblocker;
+package me.swirtzly.modblocker;
 
 public enum MBActions {
     DISCONNECT(1),
